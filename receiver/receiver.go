@@ -101,7 +101,7 @@ func ReceiveMessagesByGo(ch *amqp.Channel, config common.Config, numConsumers in
 	}
 
 	// Wait for all consumers to start
-	wg.Wait()
 	log.Printf(" [*] %d consumers waiting for messages. To exit press CTRL+C", numConsumers)
+	wg.Wait()
 	select {} // Block indefinitely
 }
