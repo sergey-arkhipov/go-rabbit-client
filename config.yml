@@ -1,0 +1,7 @@
+rabbit_url: amqp://guest:guest@localhost:5672/
+exchange_name: ""
+queue_name: hello
+queue_durable: true
+queue_auto_delete: false
+queue_exclusive: false
+queue_no_wait: false
