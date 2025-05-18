@@ -62,3 +62,10 @@ func DeclareQueue(ch *amqp.Channel, config Config) error {
 	)
 	return err
 }
+
+// CloseWithLog закрывает ресурс и логирует ошибку, если она произошла.
+func CloseWithLog(closer interface{ Close() error }, logMsg string) {
+	if err := closer.Close(); err != nil {
+		log.Printf("%s: %v", logMsg, err)
+	}
+}

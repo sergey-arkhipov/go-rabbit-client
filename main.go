@@ -26,17 +26,9 @@ func main() {
 	// Establish connection and channel
 	conn, ch, err := common.Connect(config)
 	failOnError(err, "Failed to connect or open channel")
-	defer func() {
-		if err := conn.Close(); err != nil {
-			log.Printf("failed to close Rabbit connection: %v", err)
-		}
-	}()
 
-	defer func() {
-		if err := ch.Close(); err != nil {
-			log.Printf("failed to close Rabbit channel: %v", err)
-		}
-	}()
+	defer common.CloseWithLog(conn, "failed to close Rabbit connection")
+	defer common.CloseWithLog(ch, "failed to close Rabbit channel")
 
 	// Attempt to declare queue with config settings
 	err = common.DeclareQueue(ch, config)

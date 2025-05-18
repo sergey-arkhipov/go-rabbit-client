@@ -87,11 +87,8 @@ func SendMessagesByGo(conn *amqp.Connection, config common.Config, messages []Me
 				errs <- err
 				return
 			}
-			defer func() {
-				if err := ch.Close(); err != nil {
-					log.Printf("failed to close Rabbit channel: %v", err)
-				}
-			}()
+
+			defer common.CloseWithLog(ch, "failed to close Rabbit channel")
 
 			// Send messages
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
