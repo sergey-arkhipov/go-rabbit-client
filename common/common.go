@@ -2,6 +2,7 @@
 package common
 
 import (
+	"log"
 	"os"
 
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -39,7 +40,10 @@ func Connect(config Config) (*amqp.Connection, *amqp.Channel, error) {
 
 	ch, err := conn.Channel()
 	if err != nil {
-		conn.Close()
+		if err := conn.Close(); err != nil {
+			log.Printf("failed to close Rabbit connection: %v", err)
+		}
+
 		return nil, nil, err
 	}
 
