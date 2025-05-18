@@ -1,0 +1,27 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "gomod" # Для Go-модулей
+    directory: "/" # Путь к корню проекта, где находится go.mod
+    schedule:
+      interval: "weekly" # Частота проверки (daily, weekly, monthly)
+      day: "monday" # День недели для weekly (опционально)
+      time: "09:00" # Время проверки (опционально, в UTC)
+      timezone: "Europe/Moscow" # Часовой пояс (опционально)
+    commit-message:
+      prefix: "chore(deps):" # Префикс для сообщений коммита
+      include: "scope" # Включает область в сообщении коммита
+    labels:
+      - "dependencies" # Метки для PR
+      - "go"
+    target-branch: "main" # Ветка, в которую будут отправляться PR
+    reviewers:
+      - "your-team-name" # Имя команды или пользователя для ревью (опционально)
+    # Опционально: игнорировать определённые зависимости
+    ignore:
+      - dependency-name: "github.com/example/ignored-package"
+        versions: ["v1.2.*"]
